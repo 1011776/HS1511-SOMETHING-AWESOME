@@ -10,3 +10,12 @@ typedef struct _c4Game {
     char player1;
     char player2;
 } c4Game;
+
+
+C4Game newC4Game (char player1, char player2) { C4Game game; return game; }
+
+void showGame (C4Game game) {}
+
+int hasSpace (C4Game game, int column) { return 1; }
+
+void dropIntoColumn (C4Game game, int column) {}
