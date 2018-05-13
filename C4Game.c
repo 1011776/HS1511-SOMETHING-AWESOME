@@ -64,12 +64,15 @@ int hasSpace (C4Game game, int col) {
 }
 
 void dropIntoColumn (C4Game game, int col) {
+    assert (col >= 0);
+    assert (col < NUM_COLS);
     assert (hasSpace (game, col));
 
-    int i = NUM_ROWS;
+    int i = 0;
     while (getCell (game, col, i) != ' ') {
-        i--;
-    }
+        i++;
+    } 
+    
     game->cells[col][i] = whoseTurn (game);
     game->turnNumber++;
 }
