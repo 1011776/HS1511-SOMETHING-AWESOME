@@ -12,10 +12,14 @@ void printLine (void);
 int main(int argc, char *argv[]) {
     C4Game game = newC4Game();
     
+    int move;
     int i = 0;
-
-    while (i < 20) {
-        showGame(game);
+    while (i < 100) {
+        showGame (game);
+        printf ("  0   1   2   3   4   5   6\n");
+        printf ("%c's turn: ", whoseTurn (game));
+        scanf ("%d", &move);
+        dropIntoColumn(game, move);
         i++;
     }
 
