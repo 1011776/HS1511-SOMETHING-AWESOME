@@ -8,6 +8,10 @@
 
 #define TRUE 1
 #define FALSE 0
+#define GAME_NOT_OVER 0
+#define PLAYER_1_WINS 1
+#define PLAYER_2_WINS 2
+#define TIE 3
 #define PLAYER_1 'X'
 #define PLAYER_2 'O'
 #define EMPTY_CELL ' '
@@ -27,3 +31,5 @@ char whoseTurn (C4Game game);
 int hasSpace (C4Game game, int column);
 
 void dropIntoColumn (C4Game game, int column);
+
+int getState (C4Game game);

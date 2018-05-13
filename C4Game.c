@@ -76,3 +76,24 @@ void dropIntoColumn (C4Game game, int col) {
     game->cells[col][i] = whoseTurn (game);
     game->turnNumber++;
 }
+
+int getState (C4Game game) {
+    int state;
+
+    
+    int i = 0;
+    int count = 0;
+    while (i < NUM_COLS) {
+        if (hasSpace (game, i)) {
+            count++;
+        }
+        i++;
+    }
+    if (count == NUM_COLS) {
+        state = TIE;
+    } else {
+        state = GAME_NOT_OVER;
+    }
+
+    return state;
+}
