@@ -16,12 +16,13 @@ int main(int argc, char *argv[]) {
 
     while (i < 20) {
         showGame(game);
+        i++;
     }
 
     return EXIT_SUCCESS; 
 }
 
-void showGame (C4Game game);
+void showGame (C4Game game) {
     int row = NUM_ROWS - 1;
     while (row >= 0) { 
         printLine ();
@@ -36,8 +37,7 @@ void showGame (C4Game game);
     printLine ();
 }
 
-
-static void printLine (void);
+void printLine (void) {
     int i  = 0;
     while (i < NUM_COLS)
     {

@@ -34,7 +34,7 @@ char getCell (C4Game game, int col, int row) {
     return game->cells[col][row];
 }
 
-int getTurnNumber () {
+int getTurnNumber (C4Game game) {
     return game->turnNumber;
 }
 
@@ -42,12 +42,12 @@ char whoseTurn (C4Game game) {
     assert (getTurnNumber >= 0);
 
     char turn;
-    if (getTurnNumber % 2 == 0) {
+    if (getTurnNumber (game) % 2 == 0) {
         turn = PLAYER_1;
     } else {
         turn = PLAYER_2;
     }
-    return game->whoseTurn;
+    return turn;
 }
 
 int hasSpace (C4Game game, int col) {
@@ -55,7 +55,7 @@ int hasSpace (C4Game game, int col) {
     assert (col < NUM_COLS);
     
     int output;
-    if (game->cells[col][NUM_ROWS - 1] == EMPTY_CELL) {
+    if (getCell (game, col, NUM_ROWS - 1) == EMPTY_CELL) {
         output = TRUE;
     } else {
         output = FALSE;
@@ -67,9 +67,9 @@ void dropIntoColumn (C4Game game, int col) {
     assert (hasSpace (game, col));
 
     int i = NUM_ROWS;
-    while (game->board[col][i] != ' ') {
+    while (getCell (game, col, i) != ' ') {
         i--;
     }
-    game->board[col][i] = whoseTurn (game);
+    game->cells[col][i] = whoseTurn (game);
     game->turnNumber++;
 }
