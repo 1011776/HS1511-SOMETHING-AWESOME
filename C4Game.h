@@ -18,9 +18,9 @@ typedef struct _c4Game *C4Game;
 
 C4Game newC4Game (void);
 
-void showGame (C4Game game);
-
 char getCell (C4Game game, int col, int row);
+
+int turnNumber (C4Game game);
 
 char whoseTurn (C4Game game);
 

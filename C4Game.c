@@ -6,11 +6,8 @@
 
 typedef struct _c4Game {
     char cells[NUM_COLS][NUM_ROWS];
-    char whoseTurn;
+    char turnNumber;
 } c4Game;
-
-static void switchTurns (C4Game game);
-static void printLine (void);
 
 C4Game newC4Game (void) { 
     C4Game new = malloc (sizeof (c4Game));
@@ -24,23 +21,8 @@ C4Game newC4Game (void) {
         }
         i++;
     }
-    new->whoseTurn = PLAYER_1;
+    new->turnNumber = 0;
     return new;
-}
-
-void showGame (C4Game game) {
-    int row = NUM_ROWS - 1;
-    while (row >= 0) { 
-        printLine ();
-        int col = 0;
-        while (col < NUM_COLS) {
-            printf ("| %c ", getCell (game, col, row));
-            col++;
-        }
-        printf ("|\n");
-        row--;
-    }
-    printLine ();
 }
 
 char getCell (C4Game game, int col, int row) {
@@ -52,13 +34,26 @@ char getCell (C4Game game, int col, int row) {
     return game->cells[col][row];
 }
 
+int getTurnNumber () {
+    return game->turnNumber;
+}
+
 char whoseTurn (C4Game game) {
-    return game->whoseTurn; 
+    assert (getTurnNumber >= 0);
+
+    char turn;
+    if (getTurnNumber % 2 == 0) {
+        turn = PLAYER_1;
+    } else {
+        turn = PLAYER_2;
+    }
+    return game->whoseTurn;
 }
 
 int hasSpace (C4Game game, int col) {
     assert (col >= 0);
     assert (col < NUM_COLS);
+    
     int output;
     if (game->cells[col][NUM_ROWS - 1] == EMPTY_CELL) {
         output = TRUE;
@@ -69,25 +64,12 @@ int hasSpace (C4Game game, int col) {
 }
 
 void dropIntoColumn (C4Game game, int col) {
-    
-}
+    assert (hasSpace (game, col));
 
-static void switchTurns (C4Game game) {
-    assert (whoseTurn (game) == PLAYER_1 
-        || whoseTurn (game) == PLAYER_2);
-    if (game->whoseTurn == PLAYER_1) {
-        game->whoseTurn = PLAYER_2;
-    } else {
-        game->whoseTurn = PLAYER_1;
+    int i = NUM_ROWS;
+    while (game->board[col][i] != ' ') {
+        i--;
     }
-}
-
-static void printLine (void) {
-    int i  = 0;
-    while (i < NUM_COLS)
-    {
-        printf("+---");
-        i++;
-    }
-    printf("+\n");
+    game->board[col][i] = whoseTurn (game);
+    game->turnNumber++;
 }
