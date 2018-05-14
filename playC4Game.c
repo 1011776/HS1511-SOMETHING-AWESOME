@@ -21,9 +21,9 @@ int main(int argc, char *argv[]) {
     }
     showGame (game);
     if (getState (game) == PLAYER_1_WINS) {
-        printf ("PLAYER 1 WINS!\n");
+        printf ("%c WINS!\n", PLAYER_1);
     } else if (getState (game) == PLAYER_2_WINS) {
-        printf ("PLAYER 2 WINS!\n");
+        printf ("%c WINS!\n", PLAYER_2);
     } else if (getState (game) == TIE) {
         printf ("TIE!\n");
     }
