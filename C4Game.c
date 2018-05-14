@@ -72,14 +72,12 @@ void dropIntoColumn (C4Game game, int col) {
     while (getCell (game, col, i) != ' ') {
         i++;
     } 
-    
     game->cells[col][i] = whoseTurn (game);
     game->turnNumber++;
 }
 
 int getState (C4Game game) {
     int state;
-
     
     int i = 0;
     int count = 0;
