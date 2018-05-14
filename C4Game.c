@@ -78,20 +78,78 @@ void dropIntoColumn (C4Game game, int col) {
 
 int getState (C4Game game) {
     int state;
-    
-    int i = 0;
-    int count = 0;
-    while (i < NUM_COLS) {
-        if (hasSpace (game, i)) {
-            count++;
+
+    if (hasWon (game, PLAYER_1)) {
+        state = PLAYER_1_WINS;
+    } else if (hasWon (game, PLAYER_2)) {
+        state = PLAYER_2_WINS;
+    } else { 
+        int i = 0;
+        int count = 0;
+        while (i < NUM_COLS) {
+            if (hasSpace (game, i)) {
+                count++;
+            }
+            i++;
         }
-        i++;
-    }
-    if (count == 0) {
-        state = TIE;
-    } else {
-        state = GAME_NOT_OVER;
+        if (count == 0) {
+            state = TIE;
+        } else {
+            state = GAME_NOT_OVER;
+        }
     }
 
     return state;
+}
+
+int hasWon (C4Game game, char player) {
+    int win = FALSE;
+    int col     = 0;
+    int row     = 0;
+    int i       = 0;
+    int count   = 0;
+
+    // Test for horizontal win
+    col = 0;
+    while (col < NUM_COLS - CONNECT_TO_WIN) {
+        row = 0;
+        while (row < NUM_ROWS) {
+            count = 0;
+            i = 0;
+            while (i < CONNECT_TO_WIN) {
+                if (getCell (game, col + i, row) == player) {
+                    count++;
+                }
+                i++;
+            }        
+            if (count == CONNECT_TO_WIN) {
+                win = TRUE;
+            }
+            row++;
+        }
+        col++;
+    }
+
+    // Test for vertical win
+    col = 0;
+    while (col < NUM_COLS) {
+        row = 0;
+        while (row < NUM_ROWS - CONNECT_TO_WIN) {
+            count = 0;
+            i = 0;
+            while (i < CONNECT_TO_WIN) {
+                if (getCell (game, col, row + i) == player) {
+                    count++;
+                }
+                i++;
+            }        
+            if (count == CONNECT_TO_WIN) {
+                win = TRUE;
+            }
+            row++;
+        }
+        col++;
+    }
+    
+    return win;
 }
