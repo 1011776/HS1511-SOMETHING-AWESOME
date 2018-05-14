@@ -11,7 +11,6 @@ void printLine (void);
 
 int main(int argc, char *argv[]) {
     C4Game game = newC4Game();
-    
     int move;
     while (getState (game) == 0) {
         showGame (game);
@@ -19,6 +18,14 @@ int main(int argc, char *argv[]) {
         printf ("%c's turn: ", whoseTurn (game));
         scanf ("%d", &move);
         dropIntoColumn(game, move);
+    }
+    showGame (game);
+    if (getState (game) == PLAYER_1_WINS) {
+        printf ("PLAYER 1 WINS!\n");
+    } else if (getState (game) == PLAYER_2_WINS) {
+        printf ("PLAYER 2 WINS!\n");
+    } else if (getState (game) == TIE) {
+        printf ("TIE!\n");
     }
 
     return EXIT_SUCCESS; 
