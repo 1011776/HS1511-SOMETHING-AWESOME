@@ -103,11 +103,14 @@ int getState (C4Game game) {
 }
 
 int hasWon (C4Game game, char player) {
+    assert (CONNECT_TO_WIN <= NUM_COLS);
+    assert (CONNECT_TO_WIN <= NUM_ROWS);
+
     int win = FALSE;
-    int col     = 0;
-    int row     = 0;
-    int i       = 0;
-    int count   = 0;
+    int col;
+    int row;
+    int i;
+    int count;
 
     // Test for horizontal win
     col = 0;
@@ -139,6 +142,48 @@ int hasWon (C4Game game, char player) {
             i = 0;
             while (i < CONNECT_TO_WIN) {
                 if (getCell (game, col, row + i) == player) {
+                    count++;
+                }
+                i++;
+            }        
+            if (count == CONNECT_TO_WIN) {
+                win = TRUE;
+            }
+            row++;
+        }
+        col++;
+    }
+    
+    // Test for diagonal win (bottom left to top right)
+    col = 0;
+    while (col < NUM_COLS - CONNECT_TO_WIN) {
+        row = 0;
+        while (row < NUM_ROWS - CONNECT_TO_WIN) {
+            count = 0;
+            i = 0;
+            while (i < CONNECT_TO_WIN) {
+                if (getCell (game, col + i, row + i) == player) {
+                    count++;
+                }
+                i++;
+            }        
+            if (count == CONNECT_TO_WIN) {
+                win = TRUE;
+            }
+            row++;
+        }
+        col++;
+    }
+    
+    // Test for diagonal win (top left to bottom right)
+    col = CONNECT_TO_WIN;
+    while (col < NUM_COLS) {
+        row = 0;
+        while (row < NUM_ROWS - CONNECT_TO_WIN) {
+            count = 0;
+            i = 0;
+            while (i < CONNECT_TO_WIN) {
+                if (getCell (game, col - i, row + i) == player) {
                     count++;
                 }
                 i++;
