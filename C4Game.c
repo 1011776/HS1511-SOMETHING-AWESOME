@@ -87,7 +87,7 @@ int getState (C4Game game) {
         }
         i++;
     }
-    if (count == NUM_COLS) {
+    if (count == 0) {
         state = TIE;
     } else {
         state = GAME_NOT_OVER;
