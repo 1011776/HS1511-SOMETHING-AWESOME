@@ -114,7 +114,7 @@ int hasWon (C4Game game, char player) {
 
     // Test for horizontal win
     col = 0;
-    while (col < NUM_COLS - CONNECT_TO_WIN) {
+    while (col <= NUM_COLS - CONNECT_TO_WIN) {
         row = 0;
         while (row < NUM_ROWS) {
             count = 0;
@@ -137,7 +137,7 @@ int hasWon (C4Game game, char player) {
     col = 0;
     while (col < NUM_COLS) {
         row = 0;
-        while (row < NUM_ROWS - CONNECT_TO_WIN) {
+        while (row <= NUM_ROWS - CONNECT_TO_WIN) {
             count = 0;
             i = 0;
             while (i < CONNECT_TO_WIN) {
@@ -156,9 +156,9 @@ int hasWon (C4Game game, char player) {
     
     // Test for diagonal win (bottom left to top right)
     col = 0;
-    while (col < NUM_COLS - CONNECT_TO_WIN) {
+    while (col <= NUM_COLS - CONNECT_TO_WIN) {
         row = 0;
-        while (row < NUM_ROWS - CONNECT_TO_WIN) {
+        while (row <= NUM_ROWS - CONNECT_TO_WIN) {
             count = 0;
             i = 0;
             while (i < CONNECT_TO_WIN) {
@@ -179,7 +179,7 @@ int hasWon (C4Game game, char player) {
     col = CONNECT_TO_WIN;
     while (col < NUM_COLS) {
         row = 0;
-        while (row < NUM_ROWS - CONNECT_TO_WIN) {
+        while (row <= NUM_ROWS - CONNECT_TO_WIN) {
             count = 0;
             i = 0;
             while (i < CONNECT_TO_WIN) {
