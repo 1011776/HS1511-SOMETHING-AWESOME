@@ -4,4 +4,6 @@
 
 #include "C4Game.h"
 
-void makeMove (C4Game game);
+void mrPass (C4Game game);
+
+void miniMax (C4Game game, int depth);
