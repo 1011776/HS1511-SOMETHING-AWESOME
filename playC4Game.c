@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "C4Game.h"
+#include "C4GameAI.h"
 
 void showGame (C4Game game);
 void printLine (void);
