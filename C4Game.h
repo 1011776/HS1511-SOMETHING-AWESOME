@@ -12,6 +12,7 @@
 #define PLAYER_1_WINS 1
 #define PLAYER_2_WINS 2
 #define TIE 3
+
 #define CONNECT_TO_WIN 4
 #define NUM_COLS 7
 #define NUM_ROWS 6
