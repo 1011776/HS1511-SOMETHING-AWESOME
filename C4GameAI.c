@@ -15,6 +15,7 @@ typedef struct _node {
 
 static void generateChildNodes (node *parentNode);
 static void generateToDepth (node *parentNode, int depth);
+static void updateStates (node *parentNode);
 static void freeNode (node *parentNode);
 
 int mrPass (C4Game game) {
@@ -38,6 +39,7 @@ int miniMax (C4Game game, int depth) {
     head->game = copyC4Game (game);
     head->state = NOT_OVER;
     generateToDepth (head, depth);
+    updateStates (head);
     freeNode (head);
  
     return (mrPass (game));  
@@ -70,6 +72,46 @@ static void generateToDepth (node *parentNode, int depth) {
             generateToDepth(parentNode->childNodes[i], depth - 1);
             i++;
         }
+    }
+}
+
+static void updateStates (node *parentNode) { 
+    int turn = whoseTurn (parentNode->game);
+    if (turn == PLAYER_1) {    
+        parentNode->state = PLAYER_2_WINS;
+    } else {
+        parentNode->state = PLAYER_1_WINS;
+    }
+
+    int i = 0;
+    while (i < NUM_COLS) {
+        if(parentNode->childNodes[i] != NULL) {
+            if (parentNode->childNodes[i]->state == NOT_OVER) {
+                updateStates (parentNode->childNodes[i]);
+            }
+            
+            // Check for win
+            if (parentNode->state 
+                == PLAYER_1_WINS && turn == PLAYER_1) {
+                    parentNode->state = PLAYER_1_WINS;
+            } else if (parentNode->childNodes[i]->state 
+                == PLAYER_2_WINS && turn == PLAYER_2) {
+                    parentNode->state = PLAYER_2_WINS;
+            }
+
+            // Check for tie or not over
+            if ((parentNode->state == PLAYER_1_WINS 
+                && turn == PLAYER_2)
+                || (parentNode->state == PLAYER_2_WINS 
+                && turn == PLAYER_1)) {
+                if (parentNode->childNodes[i]->state == NOT_OVER) {
+                    parentNode->state = NOT_OVER;
+                } else if (parentNode->childNodes[i]->state == TIE) {
+                    parentNode->state = TIE;
+                }
+            }
+        }
+        i++;
     }
 }
 
