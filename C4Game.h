@@ -26,6 +26,8 @@ C4Game newC4Game (void);
 
 C4Game copyC4Game (C4Game game);
 
+void freeC4Game (C4Game game);
+
 char getCell (C4Game game, int col, int row);
 
 int turnNumber (C4Game game);

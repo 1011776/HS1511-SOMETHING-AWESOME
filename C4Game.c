@@ -27,7 +27,16 @@ C4Game newC4Game (void) {
 
 C4Game copyC4Game (C4Game game) {
     C4Game copy = malloc (sizeof (c4Game));
-    *copy = *game;
+    int i = 0;
+    while (i < NUM_COLS) {
+        int j = 0;
+        while (j < NUM_ROWS) {
+            copy->cells[i][j] = game->cells[i][j];
+            j++;
+        }
+        i++;
+    }
+    copy->turnNumber = game->turnNumber;
     return copy;
 }
 
