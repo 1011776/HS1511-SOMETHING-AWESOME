@@ -8,7 +8,7 @@
 
 #define TRUE 1
 #define FALSE 0
-#define GAME_NOT_OVER 0
+#define NOT_OVER 0
 #define PLAYER_1_WINS 1
 #define PLAYER_2_WINS 2
 #define TIE 3
@@ -23,6 +23,8 @@
 typedef struct _c4Game *C4Game;
 
 C4Game newC4Game (void);
+
+C4Game copyC4Game (C4Game game);
 
 char getCell (C4Game game, int col, int row);
 

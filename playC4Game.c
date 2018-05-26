@@ -13,12 +13,19 @@ void printLine (void);
 int main(int argc, char *argv[]) {
     C4Game game = newC4Game();
     int move;
-    while (getState (game) == 0) {
+    while (getState (game) == NOT_OVER) {
         showGame (game);
         printf ("  0   1   2   3   4   5   6\n");
         printf ("%c's turn: ", whoseTurn (game));
         scanf ("%d", &move);
-        dropIntoColumn(game, move);
+        dropIntoColumn (game, move);
+        if (getState (game) == 0) {
+            showGame (game);
+            printf ("  0   1   2   3   4   5   6\n");
+            move = miniMax (game, 10); 
+            printf ("%c's turn: %d\n", whoseTurn (game), move);
+            dropIntoColumn (game, move);
+        }
     }
     showGame (game);
     if (getState (game) == PLAYER_1_WINS) {
@@ -28,7 +35,8 @@ int main(int argc, char *argv[]) {
     } else if (getState (game) == TIE) {
         printf ("TIE!\n");
     }
-
+    
+    freeC4Game (game);
     return EXIT_SUCCESS; 
 }
 

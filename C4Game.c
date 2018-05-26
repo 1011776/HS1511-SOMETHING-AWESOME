@@ -25,6 +25,16 @@ C4Game newC4Game (void) {
     return new;
 }
 
+C4Game copyC4Game (C4Game game) {
+    C4Game copy = malloc (sizeof (c4Game));
+    *copy = *game;
+    return copy;
+}
+
+void freeC4Game (C4Game game) {
+    free (game);
+}
+
 char getCell (C4Game game, int col, int row) {
     assert (col >= 0);
     assert (col < NUM_COLS);
@@ -95,7 +105,7 @@ int getState (C4Game game) {
         if (count == 0) {
             state = TIE;
         } else {
-            state = GAME_NOT_OVER;
+            state = NOT_OVER;
         }
     }
 
