@@ -2,6 +2,7 @@
 // Created by Alistair Parkinson
 // 25/5/2018
 
+#include <assert.h>
 #include "C4GameAI.h"
 
 typedef struct _node *link;
@@ -13,9 +14,12 @@ typedef struct _node {
 } node;
 
 static void generateChildNodes (node *parentNode);
+static void generateToDepth (node *parentNode, int depth);
 static void freeNode (node *parentNode);
 
 int mrPass (C4Game game) {
+    assert (getState (game) == NOT_OVER);
+
     int move;
     int i = 0;
     while(i < NUM_COLS) {
@@ -28,10 +32,12 @@ int mrPass (C4Game game) {
 }
 
 int miniMax (C4Game game, int depth) {
+    assert (getState (game) == NOT_OVER); 
+
     link head = malloc (sizeof (node));
     head->game = copyC4Game (game);
     head->state = NOT_OVER;
-    generateChildNodes (head);
+    generateToDepth (head, depth);
     freeNode (head);
  
     return (mrPass (game));  
@@ -51,6 +57,19 @@ static void generateChildNodes (node *parentNode) {
             parentNode->childNodes[i] = NULL;
         }
         i++;
+    }
+}
+
+static void generateToDepth (node *parentNode, int depth) {
+    assert (depth >= 0);    
+
+    if (depth != 0 && parentNode->state == NOT_OVER) {
+        generateChildNodes (parentNode);
+        int i = 0;
+        while (i < NUM_COLS) {
+            generateToDepth(parentNode->childNodes[i], depth - 1);
+            i++;
+        }
     }
 }
 

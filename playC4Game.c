@@ -22,7 +22,7 @@ int main(int argc, char *argv[]) {
         if (getState (game) == 0) {
             showGame (game);
             printf ("  0   1   2   3   4   5   6\n");
-            move = miniMax (game, 10); 
+            move = miniMax (game, 5); 
             printf ("%c's turn: %d\n", whoseTurn (game), move);
             dropIntoColumn (game, move);
         }
