@@ -14,15 +14,17 @@ int main(int argc, char *argv[]) {
     C4Game game = newC4Game();
     int move;
     while (getState (game) == NOT_OVER) {
+        printf("\e[1;1H\e[2J");
         showGame (game);
         printf ("  0   1   2   3   4   5   6\n");
         printf ("%c's turn: ", whoseTurn (game));
         scanf ("%d", &move);
         dropIntoColumn (game, move);
+	printf("\e[1;1H\e[2J");
         if (getState (game) == 0) {
             showGame (game);
             printf ("  0   1   2   3   4   5   6\n");
-            move = miniMax (game, 5); 
+            move = miniMax (game, 7); 
             printf ("%c's turn: %d\n", whoseTurn (game), move);
             dropIntoColumn (game, move);
         }

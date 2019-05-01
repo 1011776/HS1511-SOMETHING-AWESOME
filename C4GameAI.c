@@ -70,7 +70,9 @@ static void generateToDepth (node *parentNode, int depth) {
         generateChildNodes (parentNode);
         int i = 0;
         while (i < NUM_COLS) {
-            generateToDepth(parentNode->childNodes[i], depth - 1);
+            if (hasSpace (parentNode->game, i)) {
+                generateToDepth(parentNode->childNodes[i], depth - 1);
+            }
             i++;
         }
     }
